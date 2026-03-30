@@ -41,6 +41,7 @@ const [isClicked, setisClicked] = useState(false)
             setProperties(prev =>
                 prev.filter(property => property._id !== propertyId)
             );
+            setisClicked(false)
 
         } catch (error) {
             setisClicked(false)

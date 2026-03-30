@@ -33,7 +33,7 @@ const PropertiesSection = () => {
   async function addFavourite(propertyId) {
     try {
 
-      if(isClicked){
+      if (isClicked) {
         return;
       }
       const response = await addToFavourite(propertyId)
@@ -44,6 +44,8 @@ const PropertiesSection = () => {
             ? { ...property, isFavourite: true }
             : property
       ))
+      setisClicked(false)
+
     } catch (error) {
       setisClicked(false)
       if (error.response.status === 401) {
@@ -57,18 +59,19 @@ const PropertiesSection = () => {
 
   async function removeFavourite(propertyId) {
     try {
-      if(isClicked){
+      if (isClicked) {
         return
       }
       console.log(propertyId)
+      const response = await removeFromFavourite(propertyId)
+      toast.success(response.data.message)
       setproperties(prev => prev.map(
         property =>
           property._id === propertyId
             ? { ...property, isFavourite: false }
             : property
       ))
-      const response = await removeFromFavourite(propertyId)
-      toast.success(response.data.message)
+      setisClicked(false)
     } catch (error) {
       setisClicked(false)
       if (error.response.status === 401) {
