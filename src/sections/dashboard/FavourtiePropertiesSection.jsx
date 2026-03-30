@@ -43,6 +43,7 @@ const [isClicked, setisClicked] = useState(false)
             );
 
         } catch (error) {
+            setisClicked(false)
             if (error.response.status === 401) {
                 navigate('/login')
             } else {

@@ -45,7 +45,7 @@ const PropertiesSection = () => {
             : property
       ))
     } catch (error) {
-      console.log(error.response)
+      setisClicked(false)
       if (error.response.status === 401) {
         navigate('/login')
       }
@@ -70,6 +70,7 @@ const PropertiesSection = () => {
       const response = await removeFromFavourite(propertyId)
       toast.success(response.data.message)
     } catch (error) {
+      setisClicked(false)
       if (error.response.status === 401) {
         navigate('/login')
       } else {
