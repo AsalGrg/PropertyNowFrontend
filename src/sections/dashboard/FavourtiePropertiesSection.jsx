@@ -9,7 +9,7 @@ const FavourtiePropertiesSection = () => {
 
     const [properties, setProperties] = useState([])
     const navigate = useNavigate();
-
+const [isClicked, setisClicked] = useState(false)
 
     useEffect(() => {
         async function fetchProperties() {
@@ -32,7 +32,9 @@ const FavourtiePropertiesSection = () => {
 
     async function removeFavourite(propertyId) {
         try {
-
+            if(isClicked){
+                return;
+            }
             console.log(propertyId)
             const response = await removeFromFavourite(propertyId)
             toast.success(response.data.message)
@@ -57,6 +59,7 @@ const FavourtiePropertiesSection = () => {
                 <Heading primaryText={"Favourtie"} secondaryText={"Properties"} para={"Explore the favorite properties listing."} />
 
                 <PropertiesListing properties={properties} removeFavoriteHandler={removeFavourite} 
+                setIsClicked={setisClicked}
                 emptyText={"Looks like you don't have any favorites at the moment."}
                 />
             </div>

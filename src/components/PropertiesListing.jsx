@@ -1,7 +1,7 @@
 import React from 'react'
 import PropertyCard from './PropertyCard'
 
-const PropertiesListing = ({ properties = [], addFavoriteHandler = null, removeFavoriteHandler,emptyText}) => {
+const PropertiesListing = ({ properties = [], addFavoriteHandler = null, removeFavoriteHandler,emptyText, setIsClicked}) => {
 
     return (
 
@@ -13,7 +13,9 @@ const PropertiesListing = ({ properties = [], addFavoriteHandler = null, removeF
                             <PropertyCard
                                 property={property}
                                 addFavoriteHandler={addFavoriteHandler}
-                                removeFavoriteHandler={removeFavoriteHandler} />
+                                removeFavoriteHandler={removeFavoriteHandler} 
+                                setIsClicked={setIsClicked}
+                                />
                         ))
                     }
                 </div>

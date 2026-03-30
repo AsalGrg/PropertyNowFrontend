@@ -11,7 +11,7 @@ const PropertiesSection = () => {
   const [properties, setproperties] = useState([])
 
   const navigate = useNavigate();
-
+  const [isClicked, setisClicked] = useState(false)
 
   useEffect(() => {
     async function getProperties() {
@@ -32,6 +32,10 @@ const PropertiesSection = () => {
 
   async function addFavourite(propertyId) {
     try {
+
+      if(isClicked){
+        return;
+      }
       const response = await addToFavourite(propertyId)
       toast.success(response.data.message)
       setproperties(prev => prev.map(
@@ -53,16 +57,18 @@ const PropertiesSection = () => {
 
   async function removeFavourite(propertyId) {
     try {
-
+      if(isClicked){
+        return
+      }
       console.log(propertyId)
-      const response = await removeFromFavourite(propertyId)
-      toast.success(response.data.message)
       setproperties(prev => prev.map(
         property =>
           property._id === propertyId
             ? { ...property, isFavourite: false }
             : property
       ))
+      const response = await removeFromFavourite(propertyId)
+      toast.success(response.data.message)
     } catch (error) {
       if (error.response.status === 401) {
         navigate('/login')
@@ -73,7 +79,7 @@ const PropertiesSection = () => {
   }
   return (
     <section className=''
-    id='properties'
+      id='properties'
     >
       <div className='content !py-14 space-y-14'>
         <Heading primaryText={"Properties"} secondaryText={"Listing"} para={"Explore the newest listing as your liking."} />
@@ -83,6 +89,7 @@ const PropertiesSection = () => {
           addFavoriteHandler={addFavourite}
           removeFavoriteHandler={removeFavourite}
           emptyText={"Looks like there is no properties at the moment."}
+          setIsClicked={setisClicked}
         />
       </div>
 
